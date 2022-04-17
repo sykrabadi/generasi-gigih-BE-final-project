@@ -7,7 +7,7 @@ RSpec.describe OrderDetail, type: :model do
       total_price: 15000,
       payment_status: "new"
     )
-
+    
     category = Category.create(name: "Lunch")
     
     food = Food.create(

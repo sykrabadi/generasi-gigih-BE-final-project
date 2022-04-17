@@ -46,4 +46,19 @@ RSpec.describe Customer, type: :model do
     customer2.valid?
     expect(customer2.errors[:email]).to include("has already been taken")
   end
+
+  it "check if a customer place an order" do
+    customer = Customer.create(
+      name: "Si Gigih",
+      email: "sigigih@email.com"
+    )
+
+    order = Order.new(
+      order_date: Date.new(2022, 4, 16),
+      total_price: 2020,
+      payment_status: "paid"
+    )
+
+    expect(Customer.check_order(customer.id)).to be_valid
+  end
 end
