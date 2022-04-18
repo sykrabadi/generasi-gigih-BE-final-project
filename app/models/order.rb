@@ -6,7 +6,4 @@ class Order < ApplicationRecord
   validates :total_price, presence: true, numericality: true
   validates :payment_status, presence: true
 
-  def total_price
-    sum(quantity * price)
-  end
 end

@@ -22,31 +22,62 @@ RSpec.describe Order, type: :model do
     expect(order.errors[:order_date]).to include("can't be blank")
   end
 
-  it "is valid with given total price" do
-    category = Category.new(name: "Lunch")
+  it 'check order has valid total price' do
+    category = Category.create(name: 'Lunch')
     
     food = Food.create(
-      name: "Nasi Uduk",
+      name: 'Nasi Uduk',
       description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
       price: 15000.0,
       category: category
     )
-    
-    order = Order.create(
+
+    order_1 = Order.create(
       order_date: Date.new(2022, 4, 16),
       total_price: 0,
-      payment_status: "paid"
+      payment_status: 'new'
     )
 
-    order_details = OrderDetail.create(
-      quantity: 2,
+    order_detail_1 = OrderDetail.create(
+      order_id: order_1.id,
       food_id: food.id,
-      order_id: order.id
+      quantity: 2,
+      price: food.price
     )
 
-    
+    order_detail_2 = OrderDetail.create(
+      order_id: order_1.id,
+      food_id: food.id,
+      quantity: 2,
+      price: food.price
+    )
 
-    expect(order[:total_price]).to eq(30000)
+    order_2 = Order.create(
+      order_date: Date.new(2022, 4, 16),
+      total_price: 0,
+      payment_status: 'new'
+    )
+
+    order_detail_3 = OrderDetail.create(
+      order_id: order_2.id,
+      food_id: food.id,
+      quantity: 3,
+      price: food.price
+    )
+
+    order_detail_4 = OrderDetail.create(
+      order_id: order_2.id,
+      food_id: food.id,
+      quantity: 3,
+      price: food.price
+    )
+
+    order_1[:total_price] = OrderDetail.total_price(order_1)
+    
+    order_2[:total_price] = OrderDetail.total_price(order_2)
+
+    expect(order_1[:total_price]).to eq(60000)
+    expect(order_2[:total_price]).to eq(90000)
   end
 
   it "is invalid without given total price" do
