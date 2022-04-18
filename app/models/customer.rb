@@ -5,6 +5,6 @@ class Customer < ApplicationRecord
   validates :email, uniqueness: true, presence: true
 
   def self.check_order(customer_id)
-    joins(:order).where(customer_id: "#{customer_id}")
+    joins(:orders)
   end
 end

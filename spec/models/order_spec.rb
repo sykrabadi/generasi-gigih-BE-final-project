@@ -23,13 +23,30 @@ RSpec.describe Order, type: :model do
   end
 
   it "is valid with given total price" do
-    order = Order.new(
+    category = Category.new(name: "Lunch")
+    
+    food = Food.create(
+      name: "Nasi Uduk",
+      description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
+      price: 15000.0,
+      category: category
+    )
+    
+    order = Order.create(
       order_date: Date.new(2022, 4, 16),
-      total_price: 15000,
+      total_price: 0,
       payment_status: "paid"
     )
 
-    expect(order).to be_valid
+    order_details = OrderDetail.create(
+      quantity: 2,
+      food_id: food.id,
+      order_id: order.id
+    )
+
+    
+
+    expect(order[:total_price]).to eq(30000)
   end
 
   it "is invalid without given total price" do
