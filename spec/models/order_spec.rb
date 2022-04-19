@@ -72,10 +72,11 @@ RSpec.describe Order, type: :model do
       price: food.price
     )
 
-    order_1[:total_price] = OrderDetail.total_price(order_1)
+    order_1.update(total_price: OrderDetail.total_price(order_1))
     
     order_2[:total_price] = OrderDetail.total_price(order_2)
 
+    order_2.save
     expect(order_1[:total_price]).to eq(60000)
     expect(order_2[:total_price]).to eq(90000)
   end
