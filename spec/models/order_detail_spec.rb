@@ -4,7 +4,6 @@ RSpec.describe OrderDetail, type: :model do
   it 'is valid with a order and food' do
     order = Order.create(
       order_date: Date.new(2022, 4, 16),
-      total_price: 15_000,
       payment_status: 'new'
     )
 
@@ -29,7 +28,6 @@ RSpec.describe OrderDetail, type: :model do
   it 'check if the quantity is integer' do
     order = Order.create(
       order_date: Date.new(2022, 4, 16),
-      total_price: 15_000,
       payment_status: 'new'
     )
 

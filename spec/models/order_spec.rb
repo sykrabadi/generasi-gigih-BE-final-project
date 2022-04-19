@@ -4,7 +4,6 @@ RSpec.describe Order, type: :model do
   it "is valid with given order date" do
     order = Order.new(
       order_date: Date.new(2022, 4, 16),
-      total_price: 15000,
       payment_status: "paid"
     )
 
@@ -14,7 +13,6 @@ RSpec.describe Order, type: :model do
   it "is invalid without given order date" do
     order = Order.new(
       order_date: nil,
-      total_price: nil,
       payment_status: "paid"
     )
 
@@ -34,7 +32,6 @@ RSpec.describe Order, type: :model do
 
     order_1 = Order.create(
       order_date: Date.new(2022, 4, 16),
-      total_price: 0,
       payment_status: 'new'
     )
 
@@ -54,7 +51,6 @@ RSpec.describe Order, type: :model do
 
     order_2 = Order.create(
       order_date: Date.new(2022, 4, 16),
-      total_price: 0,
       payment_status: 'new'
     )
 
@@ -72,41 +68,18 @@ RSpec.describe Order, type: :model do
       price: food.price
     )
 
-    order_1.update(total_price: OrderDetail.total_price(order_1))
+    # order_1.update(total_price: OrderDetail.total_price(order_1))
     
-    order_2[:total_price] = OrderDetail.total_price(order_2)
+    # order_2[:total_price] = OrderDetail.total_price(order_2)
 
-    order_2.save
-    expect(order_1[:total_price]).to eq(60000)
-    expect(order_2[:total_price]).to eq(90000)
-  end
-
-  it "is invalid without given total price" do
-    order = Order.new(
-      order_date: Date.new(2022, 4, 16),
-      total_price: nil,
-      payment_status: "paid"
-    )
-
-    order.valid?
-    expect(order.errors[:total_price]).to include("can't be blank")
-  end
-
-  it "is invalid given total price value is not a number" do
-    order = Order.new(
-      order_date: Date.new(2022, 4, 16),
-      total_price: "2020q",
-      payment_status: "paid"
-    )
-    
-    order.valid?
-    expect(order.errors[:total_price]).to include("is not a number")
+    # order_2.save
+    expect(order_1.total_price).to eq(60000)
+    expect(order_2.total_price).to eq(90000)
   end
 
   it "is invalid without given payment status" do
     order = Order.new(
       order_date: Date.new(2022, 4, 16),
-      total_price: 20222,
       payment_status: nil
     )
 
