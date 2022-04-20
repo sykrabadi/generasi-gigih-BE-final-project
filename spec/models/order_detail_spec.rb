@@ -7,13 +7,11 @@ RSpec.describe OrderDetail, type: :model do
       payment_status: 'new'
     )
 
-    category = Category.create(name: 'Lunch')
-
     food = Food.create(
       name: 'Nasi Uduk',
       description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
       price: 15_000.0,
-      category: category
+      category: "lunch"
     )
 
     order_detail = OrderDetail.create(
@@ -31,13 +29,11 @@ RSpec.describe OrderDetail, type: :model do
       payment_status: 'new'
     )
 
-    category = Category.create(name: 'Lunch')
-
     food = Food.create(
       name: 'Nasi Uduk',
       description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
       price: 15_000.0,
-      category: category
+      category: "lunch"
     )
 
     order_detail = OrderDetail.create(

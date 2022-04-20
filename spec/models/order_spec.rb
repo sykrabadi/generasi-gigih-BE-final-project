@@ -21,13 +21,11 @@ RSpec.describe Order, type: :model do
   end
 
   it 'check order has valid total price' do
-    category = Category.create(name: 'Lunch')
-    
     food = Food.create(
       name: 'Nasi Uduk',
       description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
       price: 15000.0,
-      category: category
+      category: "lunch"
     )
 
     order_1 = Order.create(
