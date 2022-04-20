@@ -2,6 +2,8 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :food
 
+  accepts_nested_attributes_for :food
+
   validates :quantity, numericality: {only_integer: true}
 
   # At this state, total_price from Order table has been removed

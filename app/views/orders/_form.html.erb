@@ -1,0 +1,24 @@
+<%= form_with(model: [@customer, order]) do |form| %>
+  <% if order.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+        <% order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :customer_id, style: "display: block" %>
+    <%= form.text_field :customer_id %>
+    <%= form.datetime_local_field :order_date %>
+    <%= form.text_field :payment_status %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
