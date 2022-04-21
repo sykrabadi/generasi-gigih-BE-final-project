@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show edit update destroy ]
-  before_action :get_customer
+  before_action :get_customer, :get_order_detail
 
   # GET /orders or /orders.json
   def index
@@ -14,6 +14,8 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = @customer.orders.build
+    @foods = Food.all
+    #@order_details = OrderDetail.new
   end
 
   # GET /orders/1/edit
@@ -64,6 +66,10 @@ class OrdersController < ApplicationController
       @order = @customer.orders.find(params[:id])
     end
 
+    def set_order_detail
+      @something = @order_details.orders.find(params[:order_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:customer_id, :order_date, :payment_status)
@@ -71,5 +77,9 @@ class OrdersController < ApplicationController
 
     def get_customer
       @customer = Customer.find(params[:customer_id])
+    end
+
+    def get_order_detail
+      #@order_detail = OrderDetail.find(params[:order_id])
     end
 end
