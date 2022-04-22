@@ -69,15 +69,15 @@ RSpec.describe Food, type: :model do
     expect(food.errors[:price]).to include("is not a number")
   end
 
-  # it "should check if category casted to array" do
-  #   food = Food.new(
-  #     name: 'Nasi Uduk',
-  #     description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
-  #     price: 20000,
-  #     category: "Lunch, Betawi, Rice"
-  #   )
+  it "should check if description is not more than 150 characters casted to array" do
+    food = Food.new(
+      name: 'Nasi Uduk',
+      description: 'Nasi uduk biasa dihidangkan dengan emping goreng, tahu goreng, telur dadar atau telur goreng yang teriris, abon kering, tempe, bawang goreng, ayam goreng, timun serta sambal kacang. Hidangan ini biasanya lebih sering dijual di pagi hari untuk sarapan dan malam hari untuk makan malam. Pada malam hari, nasi uduk sering kali dijual di pinggir jalan raya di kota-kota besar. Nasi uduk banyak dijual di kota-kota dan wilayah di pulau Jawa, tetapi cukup sulit untuk ditemukan di luar Jawa',
+      price: 20000,
+      category: "Lunch"
+    )
 
-  #   # puts Food.category_to_array
-  #   expect(food.category_to_array).to eq(["Lunch", "Betawi", "Rice"])
-  # end
+    food.valid?
+    expect(food.errors[:description]).to include("is too long (maximum is 150 characters)")
+  end
 end

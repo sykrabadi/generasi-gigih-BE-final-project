@@ -4,6 +4,7 @@ class Food < ApplicationRecord
   
   validates :name, presence: true, uniqueness: true
   validates :price, numericality: {greater_than: 0.01}
+  validates :description, presence: true, length: { maximum: 150 }
 
   def category_to_array
     return select(:category)
