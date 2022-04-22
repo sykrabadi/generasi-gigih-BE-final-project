@@ -10,6 +10,17 @@ RSpec.describe Customer, type: :model do
     expect(customer).to be_valid
   end
 
+  it "should not accept the invalid email format" do
+    customer = Customer.new(
+      name: "Si Gigih",
+      email: "12123123"
+    )
+
+    customer.valid?
+
+    expect(customer.errors[:email]).to include("is invalid")
+  end
+
   it "should not accept the invalid name" do
     customer = Customer.new(
       name: nil,
@@ -29,7 +40,7 @@ RSpec.describe Customer, type: :model do
 
     customer.valid?
 
-    expect(customer.errors[:email]).to include("can't be blank")
+    expect(customer.errors[:email]).to include("is invalid")
   end
 
   it "should not accept the duplicated email" do
